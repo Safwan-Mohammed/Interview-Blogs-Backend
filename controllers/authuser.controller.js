@@ -4,7 +4,6 @@ const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-
 const register = async(req, res, next) => {
     
     try {
@@ -20,8 +19,7 @@ const register = async(req, res, next) => {
             return next(new AppError("Email already exists" ,400))
         }
 
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password ,salt)
+        const hashedPassword = await bcrypt.hash(password ,10)
 
         const newUser = new User({username, email ,password: hashedPassword})
         const savedUser = await newUser.save()
@@ -34,13 +32,11 @@ const register = async(req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const user = await User.findOne({email : req.body.email})
-
         if(!user){
             return next(new AppError('User not found', 404)) 
         }
 
-        const match=await bcrypt.compare(req.body.password,user.password)
-
+        const match = await bcrypt.compare(req.body.password, user.password)
         if(!match){
             return next(new AppError("Wrong credentials!", 401))
         }
