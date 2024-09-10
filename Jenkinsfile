@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    railway run node index.js
+                    node_modules/.bin/railway run node index.js
                 '''
             }
         }
