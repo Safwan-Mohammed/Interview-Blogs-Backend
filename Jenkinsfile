@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    environment{
+    environment {
         RAILWAY_API_TOKEN = credentials('JENKINS_RAILWAY_AUTH')
     }
     stages {
@@ -28,8 +28,9 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm install @railway/cli
-                    node_modules/.bin/railway up
+                    npm install -g @railway/cli
+                    railway login --token $RAILWAY_API_TOKEN
+                    railway up
                 '''
             }
         }
