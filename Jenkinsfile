@@ -16,13 +16,19 @@ pipeline {
                     node --version
                     npm --version
                     npm install
-                    npm install @railway/cli
                 '''
             }
         }
         stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:22-alpine3.20'
+                    reuseNode true
+                }
+            }
             steps {
                 sh '''
+                    npm install @railway/cli
                     node_modules/.bin/railway run node index.js
                 '''
             }
