@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        RAILWAY_API_TOKEN = credentials('JENKINS_RAILWAY_AUTH')
+        RAILWAY_TOKEN = credentials('JENKINS_RAILWAY_AUTH')
+        RAILWAY_SERVICE_NAME = 'appealing-elegance'
     }
     stages {
         stage('Setup Node and Install Dependencies') {
@@ -29,8 +30,7 @@ pipeline {
             steps {
                 sh '''
                     npm install @railway/cli
-                    node_modules/.bin/railway login --token $RAILWAY_API_TOKEN
-                    railway up
+                    node_modules/.bin/railway up --service=$RAILWAY_SERVICE_NAME -d
                 '''
             }
         }
