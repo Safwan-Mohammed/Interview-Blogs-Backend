@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh "docker run -t ${IMAGE_NAME}:${TAG} ."
+                sh "docker build -t ${IMAGE_NAME}:${TAG} ."
             }
         }
         stage('Dockerhub Login') {
