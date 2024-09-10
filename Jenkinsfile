@@ -29,7 +29,7 @@ pipeline {
             steps {
                 sh '''
                     npm install @railway/cli
-                    node_modules/.bin/railway run
+                    node_modules/.bin/railway up
                 '''
             }
         }
