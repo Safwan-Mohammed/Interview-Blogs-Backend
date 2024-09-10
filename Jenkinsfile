@@ -3,7 +3,7 @@ pipeline {
     environment {
         RAILWAY_TOKEN = credentials('JENKINS_RAILWAY_AUTH')
         RAILWAY_SERVICE_NAME = 'appealing-elegance'
-        TAG = 'B1.0'
+        TAG = 'B1.1'
         IMAGE_NAME = 'lightgaia/blogs-practice-images'
         DOCKERHUB_PSW = credentials('JENKINS_DOCKER_HUB_AUTH')
         DOCKERHUB_USR = 'lightgaia'
@@ -37,6 +37,11 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh "docker push ${IMAGE_NAME}:${TAG}"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "echo 'Deploy Success!'"
             }
         }
     }
