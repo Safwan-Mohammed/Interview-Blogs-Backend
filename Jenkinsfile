@@ -28,8 +28,8 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm install -g @railway/cli
-                    railway login --token $RAILWAY_API_TOKEN
+                    npm install @railway/cli
+                    node_modules/.bin/railway login --token $RAILWAY_API_TOKEN
                     railway up
                 '''
             }
