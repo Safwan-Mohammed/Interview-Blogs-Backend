@@ -30,6 +30,7 @@ pipeline {
             steps {
                 sh '''
                     npm install @railway/cli
+                    node_modules/.bin/railway login --token $RAILWAY_TOKEN
                     node_modules/.bin/railway up --service=$RAILWAY_SERVICE_NAME -d
                 '''
             }
