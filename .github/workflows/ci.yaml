@@ -1,0 +1,25 @@
+name: Interview Blogs Backend CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker File
+        run: docker build -t lightgaia/blogs-practice-images:B1.2 .
+      
+      - name: Login to Dockerhub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
+      
+      - name: Push Dockerfile
+        run: docker push lightgaia/blogs-practice-images:B1.2
